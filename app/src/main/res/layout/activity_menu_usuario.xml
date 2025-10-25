@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#191932"
+    tools:context=".MenuUsuario">
+
+    <TextView
+        android:id="@+id/text_boas_vindas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seja bem vindo,\nusuário X"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:gravity="center"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_novo_chamado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Solicitar novo\nChamado"
+        android:textSize="18sp"
+        android:textColor="#191932"
+        android:paddingVertical="16dp"
+        android:backgroundTint="#CCCCCC"
+        android:letterSpacing="0"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintBottom_toTopOf="@+id/button_meus_chamados"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_boas_vindas"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/button_meus_chamados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Meus Chamados"
+        android:textSize="18sp"
+        android:textColor="#191932"
+        android:paddingVertical="16dp"
+        android:backgroundTint="#CCCCCC"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_novo_chamado"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
