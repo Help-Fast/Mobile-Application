@@ -5,21 +5,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText etNome, etEmail, etTelefone, etSenha, etConfirmarSenha;
     private Button btnCadastrar, btnLogin;
+    private ProgressBar progressBar; // Adicionar ao XML para feedback visual
+
+    private RegisterViewModel registerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        // Inicialização dos componentes da UI
+        // 1. Inicializa as Views
         etNome = findViewById(R.id.edit_nome);
         etEmail = findViewById(R.id.edit_email);
         etTelefone = findViewById(R.id.edit_telefone);
@@ -27,20 +32,46 @@ public class CadastroActivity extends AppCompatActivity {
         etConfirmarSenha = findViewById(R.id.edit_confirmar_senha);
         btnCadastrar = findViewById(R.id.button_cadastrar);
         btnLogin = findViewById(R.id.button_login);
+        // progressBar = findViewById(R.id.progress_bar); // Descomente quando adicionar ao XML
 
-        // Ação do botão "Cadastrar"
+        // 2. Obtém a instância da ViewModel
+        registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+
+        // 3. Configura o observador para a resposta do cadastro
+        setupObserver();
+
+        // 4. Configura os cliques dos botões
         btnCadastrar.setOnClickListener(v -> {
             handleRegistration();
         });
 
-        // Ação do botão "Login" (para voltar)
         btnLogin.setOnClickListener(v -> {
-            // Finaliza a activity de cadastro e volta para a de login
-            finish();
+            finish(); // Volta para a tela anterior (Login)
         });
     }
 
-    // Método para processar o cadastro
+    private void setupObserver() {
+        registerViewModel.getRegisterResponseLiveData().observe(this, user -> {
+            // Esconde o progress bar
+            // progressBar.setVisibility(View.GONE);
+            // btnCadastrar.setEnabled(true);
+
+            if (user != null) {
+                // Sucesso no cadastro
+                Toast.makeText(this, "Usuário " + user.getNome() + " registrado com sucesso!", Toast.LENGTH_LONG).show();
+
+                // Navega para a tela de Login
+                Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                // Falha no cadastro
+                Toast.makeText(this, "Erro ao realizar o cadastro. Tente novamente.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void handleRegistration() {
         String nome = etNome.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
@@ -48,8 +79,8 @@ public class CadastroActivity extends AppCompatActivity {
         String senha = etSenha.getText().toString().trim();
         String confirmarSenha = etConfirmarSenha.getText().toString().trim();
 
-        // Validação dos campos
-        if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || senha.isEmpty() || confirmarSenha.isEmpty()) {
+        // Validações básicas (a lógica principal estará na ViewModel/Repositório)
+        if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty() || senha.isEmpty()) {
             Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -59,19 +90,11 @@ public class CadastroActivity extends AppCompatActivity {
             return;
         }
 
-        if (senha.length() < 6) {
-            Toast.makeText(this, "A senha deve ter pelo menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Mostra o progress bar
+        // progressBar.setVisibility(View.VISIBLE);
+        // btnCadastrar.setEnabled(false);
 
-        // Lógica de cadastro (simulação)
-        Toast.makeText(this, "Usuário " + nome + " registrado com sucesso!", Toast.LENGTH_LONG).show();
-
-        // Volta para a tela de Login após o sucesso
-        Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-        // Flags para limpar a pilha de activities e garantir que o usuário não volte para a tela de cadastro
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
+        // 5. Chama o método da ViewModel para iniciar o cadastro
+        registerViewModel.register(nome, email, senha, telefone);
     }
 }

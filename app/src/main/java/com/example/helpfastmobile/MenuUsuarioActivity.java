@@ -15,10 +15,15 @@ public class MenuUsuarioActivity extends AppCompatActivity {
     private Button buttonMeusChamados;
     private Button buttonSair;
 
+    private SessionManager sessionManager; // NOVO
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_usuario);
+
+        // NOVO: Inicializa o SessionManager
+        sessionManager = new SessionManager(getApplicationContext());
 
         // Inicialização dos componentes da UI
         textBoasVindas = findViewById(R.id.text_boas_vindas);
@@ -26,16 +31,13 @@ public class MenuUsuarioActivity extends AppCompatActivity {
         buttonMeusChamados = findViewById(R.id.button_meus_chamados);
         buttonSair = findViewById(R.id.button_sair);
 
-        // Simplesmente exibimos uma mensagem genérica
         textBoasVindas.setText("Seja bem vindo!");
 
-        // Ação do botão "Solicitar novo Chamado"
         buttonNovoChamado.setOnClickListener(v -> {
             Intent intent = new Intent(MenuUsuarioActivity.this, NovoChamadoActivity.class);
             startActivity(intent);
         });
 
-        // Ação do botão "Meus Chamados"
         buttonMeusChamados.setOnClickListener(v -> {
             Intent intent = new Intent(MenuUsuarioActivity.this, MeusChamadosActivity.class);
             startActivity(intent);
@@ -43,7 +45,10 @@ public class MenuUsuarioActivity extends AppCompatActivity {
 
         // Ação do botão "Sair"
         buttonSair.setOnClickListener(v -> {
-            // Navega de volta para a tela de Login, limpando a pilha de activities
+            // NOVO: Limpa a sessão do usuário
+            sessionManager.clearSession();
+
+            // Navega de volta para a tela de Login
             Intent intent = new Intent(MenuUsuarioActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
