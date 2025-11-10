@@ -18,7 +18,7 @@ public class ChamadoViewModel extends ViewModel {
 
     private final MutableLiveData<Chamado> chamadoDetailsResult = new MutableLiveData<>();
     private final MutableLiveData<String> chamadoDetailsError = new MutableLiveData<>();
-    private final MutableLiveData<Void> abrirChamadoResult = new MutableLiveData<>();
+    private final MutableLiveData<Chamado> abrirChamadoResult = new MutableLiveData<>();
     private final MutableLiveData<String> abrirChamadoError = new MutableLiveData<>();
     private final MutableLiveData<Void> updateStatusResult = new MutableLiveData<>();
     private final MutableLiveData<String> updateStatusError = new MutableLiveData<>();
@@ -28,6 +28,8 @@ public class ChamadoViewModel extends ViewModel {
     private final MutableLiveData<String> createChatError = new MutableLiveData<>();
     private final MutableLiveData<Void> n8nSendSuccess = new MutableLiveData<>();
     private final MutableLiveData<String> n8nSendError = new MutableLiveData<>();
+    private final MutableLiveData<Void> documentAssistantSuccess = new MutableLiveData<>();
+    private final MutableLiveData<String> documentAssistantError = new MutableLiveData<>();
 
     public ChamadoViewModel() {
         this.chamadoRepository = ChamadoRepository.getInstance();
@@ -40,7 +42,7 @@ public class ChamadoViewModel extends ViewModel {
     public LiveData<String> getMeusChamadosError() { return meusChamadosError; }
     public LiveData<Chamado> getChamadoDetailsResult() { return chamadoDetailsResult; }
     public LiveData<String> getChamadoDetailsError() { return chamadoDetailsError; }
-    public LiveData<Void> getAbrirChamadoResult() { return abrirChamadoResult; }
+    public LiveData<Chamado> getAbrirChamadoResult() { return abrirChamadoResult; }
     public LiveData<String> getAbrirChamadoError() { return abrirChamadoError; }
     public LiveData<Void> getUpdateStatusResult() { return updateStatusResult; }
     public LiveData<String> getUpdateStatusError() { return updateStatusError; }
@@ -50,6 +52,8 @@ public class ChamadoViewModel extends ViewModel {
     public LiveData<String> getCreateChatError() { return createChatError; }
     public LiveData<Void> getN8nSendSuccess() { return n8nSendSuccess; }
     public LiveData<String> getN8nSendError() { return n8nSendError; }
+    public LiveData<Void> getDocumentAssistantSuccess() { return documentAssistantSuccess; }
+    public LiveData<String> getDocumentAssistantError() { return documentAssistantError; }
 
     // --- Métodos do Repositório ---
 
@@ -59,6 +63,19 @@ public class ChamadoViewModel extends ViewModel {
             public void onSucesso(Void data) { n8nSendSuccess.postValue(data); }
             @Override
             public void onErro(String errorMessage) { n8nSendError.postValue(errorMessage); }
+        });
+    }
+
+    public void perguntarDocumentAssistant(String pergunta, Integer usuarioId) {
+        chamadoRepository.perguntarDocumentAssistant(pergunta, usuarioId, new DataSourceCallback<Void>() {
+            @Override
+            public void onSucesso(Void data) { 
+                documentAssistantSuccess.postValue(data); 
+            }
+            @Override
+            public void onErro(String errorMessage) { 
+                documentAssistantError.postValue(errorMessage); 
+            }
         });
     }
 
@@ -90,9 +107,9 @@ public class ChamadoViewModel extends ViewModel {
     }
 
     public void abrirChamado(int clienteId, String motivo) {
-        chamadoRepository.abrirChamado(clienteId, motivo, new DataSourceCallback<Void>() {
+        chamadoRepository.abrirChamado(clienteId, motivo, new DataSourceCallback<Chamado>() {
             @Override
-            public void onSucesso(Void data) { abrirChamadoResult.postValue(data); }
+            public void onSucesso(Chamado data) { abrirChamadoResult.postValue(data); }
             @Override
             public void onErro(String errorMessage) { abrirChamadoError.postValue(errorMessage); }
         });

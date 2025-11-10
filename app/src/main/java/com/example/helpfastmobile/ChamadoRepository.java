@@ -51,6 +51,33 @@ public class ChamadoRepository {
         });
     }
 
+    // --- DocumentAssistant Integration (OpenAI sincrono) ---
+    public void perguntarDocumentAssistant(String pergunta, Integer usuarioId, DataSourceCallback<Void> callback) {
+        DocumentQuestionRequest request = new DocumentQuestionRequest();
+        request.setPergunta(pergunta);
+        request.setUsuarioId(usuarioId);
+        
+        apiService.perguntarDocumentAssistant(request).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Pergunta enviada para DocumentAssistant com sucesso.");
+                    callback.onSucesso(null);
+                } else {
+                    String errorMsg = "Falha ao enviar pergunta para DocumentAssistant. Código: " + response.code();
+                    Log.e(TAG, errorMsg);
+                    callback.onErro(errorMsg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(TAG, "Erro de conexão com DocumentAssistant: " + t.getMessage());
+                callback.onErro("Erro de conexão com DocumentAssistant: " + t.getMessage());
+            }
+        });
+    }
+
     public void getTodosChamados(DataSourceCallback<List<Chamado>> callback) {
         apiService.getTodosChamados().enqueue(new Callback<List<Chamado>>() {
             @Override
@@ -105,19 +132,19 @@ public class ChamadoRepository {
         });
     }
 
-    public void abrirChamado(int clienteId, String motivo, DataSourceCallback<Void> callback) {
-        apiService.abrirChamado(new AbrirChamadoDto(clienteId, motivo)).enqueue(new Callback<Void>() {
+    public void abrirChamado(int clienteId, String motivo, DataSourceCallback<Chamado> callback) {
+        apiService.abrirChamado(new AbrirChamadoDto(clienteId, motivo)).enqueue(new Callback<Chamado>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    callback.onSucesso(null);
+            public void onResponse(Call<Chamado> call, Response<Chamado> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSucesso(response.body());
                 } else {
                     callback.onErro("Falha ao abrir chamado.");
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Chamado> call, Throwable t) {
                 callback.onErro("Falha na conexão: " + t.getMessage());
             }
         });

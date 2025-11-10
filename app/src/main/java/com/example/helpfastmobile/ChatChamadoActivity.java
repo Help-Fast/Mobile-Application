@@ -113,15 +113,20 @@ public class ChatChamadoActivity extends AppCompatActivity {
             }
         });
 
-        chamadoViewModel.getN8nSendSuccess().observe(this, aVoid -> {
-            Log.i(TAG, "Mensagem enviada para o n8n com sucesso!");
+        chamadoViewModel.getDocumentAssistantSuccess().observe(this, aVoid -> {
+            Log.i(TAG, "Pergunta enviada para DocumentAssistant com sucesso!");
+            // Recarrega o chat para ver se há uma resposta da IA
+            chamadoViewModel.getChat(chamadoId);
         });
 
         chamadoViewModel.getCreateChatError().observe(this, error -> {
             if (error != null) Toast.makeText(this, "Falha ao enviar: " + error, Toast.LENGTH_SHORT).show();
         });
-        chamadoViewModel.getN8nSendError().observe(this, error -> {
-            if (error != null) Log.e(TAG, "Falha ao enviar para o n8n: " + error);
+        chamadoViewModel.getDocumentAssistantError().observe(this, error -> {
+            if (error != null) {
+                Log.e(TAG, "Falha ao enviar pergunta para DocumentAssistant: " + error);
+                Toast.makeText(this, "Erro ao processar pergunta: " + error, Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -131,11 +136,19 @@ public class ChatChamadoActivity extends AppCompatActivity {
             return;
         }
 
+        // Salva a mensagem do usuário no chat
         CreateChatDto createChatDto = new CreateChatDto();
         createChatDto.setChamadoId(chamadoId);
         createChatDto.setMotivo(mensagem);
         chamadoViewModel.createChat(createChatDto);
 
-        chamadoViewModel.sendQuestionToN8n(mensagem);
+        // Chama a API DocumentAssistant que faz chamada síncrona à OpenAI
+        Integer usuarioId = sessionManager.getUserId();
+        if (usuarioId != -1) {
+            chamadoViewModel.perguntarDocumentAssistant(mensagem, usuarioId);
+        } else {
+            Log.e(TAG, "Usuário não logado. Não é possível enviar pergunta para DocumentAssistant.");
+            Toast.makeText(this, "Erro: Usuário não identificado.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

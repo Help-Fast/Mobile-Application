@@ -1,7 +1,6 @@
 package com.example.helpfastmobile;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.Date; // Date ainda pode ser usado para o getter, se necessário, mas o campo será String
 
 public class Chamado {
 

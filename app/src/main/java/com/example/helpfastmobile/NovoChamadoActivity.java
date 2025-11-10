@@ -42,12 +42,14 @@ public class NovoChamadoActivity extends AppCompatActivity {
     }
 
     private void setupObservers() {
-        chamadoViewModel.getAbrirChamadoResult().observe(this, success -> {
-            Toast.makeText(this, "Chamado aberto com sucesso!", Toast.LENGTH_LONG).show();
-            // CORREÇÃO: Navega para a TelaFaqActivity
-            Intent intent = new Intent(NovoChamadoActivity.this, TelaFaqActivity.class);
-            startActivity(intent);
-            finish(); // Fecha a tela atual
+        chamadoViewModel.getAbrirChamadoResult().observe(this, chamado -> {
+            if (chamado != null) {
+                Toast.makeText(this, "Chamado aberto com sucesso! ID: " + chamado.getId(), Toast.LENGTH_LONG).show();
+                // CORREÇÃO: Navega para a TelaFaqActivity
+                Intent intent = new Intent(NovoChamadoActivity.this, TelaFaqActivity.class);
+                startActivity(intent);
+                finish(); // Fecha a tela atual
+            }
         });
 
         chamadoViewModel.getAbrirChamadoError().observe(this, error -> {

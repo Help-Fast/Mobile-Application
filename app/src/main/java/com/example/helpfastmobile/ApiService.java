@@ -24,7 +24,7 @@ public interface ApiService {
     Call<List<Chamado>> getTodosChamados();
     
     @POST("api/Chamados/abrir")
-    Call<Void> abrirChamado(@Body AbrirChamadoDto abrirChamadoDto);
+    Call<Chamado> abrirChamado(@Body AbrirChamadoDto abrirChamadoDto);
 
     @GET("api/Chamados/{id}")
     Call<Chamado> getChamadoDetails(@Path("id") int chamadoId);
