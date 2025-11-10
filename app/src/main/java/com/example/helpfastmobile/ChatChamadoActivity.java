@@ -19,6 +19,7 @@ import java.util.List;
 public class ChatChamadoActivity extends AppCompatActivity {
 
     public static final String EXTRA_CHAMADO_ID = "com.example.helpfastmobile.EXTRA_CHAMADO_ID";
+    public static final String EXTRA_PREENCHER_MENSAGEM = "com.example.helpfastmobile.PREENCHER_MENSAGEM";
     private static final String TAG = "HelpFastDebug";
     private static final long POLLING_INTERVAL_MS = 10000; // 10 segundos
 
@@ -54,6 +55,12 @@ public class ChatChamadoActivity extends AppCompatActivity {
             Toast.makeText(this, "Erro: ID do chamado não fornecido.", Toast.LENGTH_LONG).show();
             finish();
             return;
+        }
+
+        // Verifica se há uma mensagem pré-preenchida (vinda da FAQ)
+        String mensagemPreenchida = getIntent().getStringExtra(EXTRA_PREENCHER_MENSAGEM);
+        if (mensagemPreenchida != null && !mensagemPreenchida.trim().isEmpty()) {
+            editMensagem.setText(mensagemPreenchida);
         }
 
         setupRecyclerView();

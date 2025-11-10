@@ -45,8 +45,9 @@ public class NovoChamadoActivity extends AppCompatActivity {
         chamadoViewModel.getAbrirChamadoResult().observe(this, chamado -> {
             if (chamado != null) {
                 Toast.makeText(this, "Chamado aberto com sucesso! ID: " + chamado.getId(), Toast.LENGTH_LONG).show();
-                // CORREÇÃO: Navega para a TelaFaqActivity
+                // CORREÇÃO: Navega para a TelaFaqActivity passando o ID do chamado criado
                 Intent intent = new Intent(NovoChamadoActivity.this, TelaFaqActivity.class);
+                intent.putExtra(TelaFaqActivity.EXTRA_CHAMADO_ID, chamado.getId());
                 startActivity(intent);
                 finish(); // Fecha a tela atual
             }
