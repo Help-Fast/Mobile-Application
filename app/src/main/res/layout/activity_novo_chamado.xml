@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#161D28"
     android:paddingHorizontal="24dp"
-    tools:context=".NovoChamadoActivity">
+    tools:context=".ui.chamado.NovoChamadoActivity">
 
     <TextView
         android:id="@+id/text_logo"

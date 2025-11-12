@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#161D28" tools:context=".Tela_Chamado_Tecnico">
+    android:background="#161D28" tools:context=".ui._legacy.Tela_Chamado_Tecnico">
 
     <TextView
         android:id="@+id/text_logo"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#161D28"
     android:padding="24dp"
-    tools:context=".GerenciarUsuariosActivity">
+    tools:context=".ui.admin.GerenciarUsuariosActivity">
 
     <!-- Título -->
     <TextView

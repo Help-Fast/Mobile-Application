@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,22 +26,22 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity" android:exported="false" />
-        <activity android:name=".CadastroActivity" android:exported="false" />
-        <activity android:name=".MenuUsuarioActivity" android:exported="false" />
-        <activity android:name=".MeusChamadosActivity" android:exported="false" />
-        <activity android:name=".NovoChamadoActivity" android:exported="false" />
-        <activity android:name=".ChatChamadoActivity" android:exported="false" />
-        <activity android:name=".FinalizacaoChamadoActivity" android:exported="false" />
-        <activity android:name=".NovoTecnicoActivity" android:exported="false" />
-        <activity android:name=".TelaFaqActivity" android:exported="false" />
+        <activity android:name=".ui.login.LoginActivity" android:exported="false" />
+        <activity android:name=".ui.cadastro.CadastroActivity" android:exported="false" />
+        <activity android:name=".ui.menu.MenuUsuarioActivity" android:exported="false" />
+        <activity android:name=".ui.chamado.MeusChamadosActivity" android:exported="false" />
+        <activity android:name=".ui.chamado.NovoChamadoActivity" android:exported="false" />
+        <activity android:name=".ui.chat.ChatChamadoActivity" android:exported="false" />
+        <activity android:name=".ui._legacy.FinalizacaoChamadoActivity" android:exported="false" />
+        <activity android:name=".ui.admin.NovoTecnicoActivity" android:exported="false" />
+        <activity android:name=".ui.faq.TelaFaqActivity" android:exported="false" />
         
         <!-- NOVO: Activity de Gerenciamento adicionada -->
-        <activity android:name=".GerenciarUsuariosActivity" android:exported="false" />
+        <activity android:name=".ui.admin.GerenciarUsuariosActivity" android:exported="false" />
 
-        <activity android:name=".Tela_Chat_Admin" android:exported="false" />
-        <activity android:name=".Tela_Chat_Cliente" android:exported="false" />
-        <activity android:name=".Tela_Chamado_Tecnico" android:exported="false" />
+        <activity android:name=".ui._legacy.Tela_Chat_Admin" android:exported="false" />
+        <activity android:name=".ui._legacy.Tela_Chat_Cliente" android:exported="false" />
+        <activity android:name=".ui._legacy.Tela_Chamado_Tecnico" android:exported="false" />
 
     </application>
 

@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#161D28"
     android:paddingHorizontal="32dp"
-    tools:context=".CadastroActivity">
+    tools:context=".ui.cadastro.CadastroActivity">
 
     <!-- Aqui esta o logo do app -->
     <TextView

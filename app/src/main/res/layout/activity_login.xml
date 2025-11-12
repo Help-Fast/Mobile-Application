@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#161D28"
     android:padding="24dp"
-    tools:context=".LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <!-- Logo HELP FAST (Corrigido para centralização adequada) -->
     <LinearLayout

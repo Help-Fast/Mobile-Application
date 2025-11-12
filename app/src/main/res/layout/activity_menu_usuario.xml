@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#161D28"
-    tools:context=".MenuUsuarioActivity">
+    tools:context=".ui.menu.MenuUsuarioActivity">
 
     <Button
         android:id="@+id/button_sair"

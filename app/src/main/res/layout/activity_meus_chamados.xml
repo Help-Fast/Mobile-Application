@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#161d28"
-    tools:context=".MeusChamadosActivity">
+    tools:context=".ui.chamado.MeusChamadosActivity">
 
     <!-- Logo e Título (Corrigido para centralização) -->
     <TextView
