@@ -2,7 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.HelpFastMobile" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Você pode customizar seu tema base aqui se precisar -->
+        <!-- Cor primária da marca (usada em componentes como botões, etc.) -->
+        <item name="colorPrimary">#161D28</item>
+        <!-- Cor da barra de status (a barra superior do celular) -->
+        <item name="android:statusBarColor">#161D28</item>
     </style>
 
     <style name="Theme.HelpFastMobile" parent="Base.Theme.HelpFastMobile" />
@@ -28,11 +31,9 @@
         <item name="android:textColor">#191932</item>
         <item name="android:textSize">14sp</item>
 
-        <!-- CORRIGIDO: Substituído 'paddingVertical' por 'paddingTop' e 'paddingBottom' -->
+        <!-- Atributos de padding para garantir consistência entre versões do Android -->
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
-
-        <!-- CORRIGIDO: Substituído 'paddingHorizontal' por 'paddingStart' e 'paddingEnd' -->
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
 
