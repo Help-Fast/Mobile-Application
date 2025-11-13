@@ -187,7 +187,8 @@ public class ChamadoRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSucesso(response.body());
                 } else {
-                    callback.onErro("Falha ao buscar chat.");
+                    Log.e(TAG, "Falha ao buscar chat. Código: " + response.code() + ", Mensagem: " + response.message());
+                    callback.onErro("Falha ao buscar chat." + response.errorBody());
                 }
             }
 

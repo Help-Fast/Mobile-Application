@@ -20,6 +20,7 @@ public class ChamadoAdapter extends RecyclerView.Adapter<ChamadoAdapter.ChamadoV
     private final int cargoId;
     private final OnChamadoInteractionListener listener;
 
+    // Interface para comunicar os eventos de clique do item para a Activity.
     public interface OnChamadoInteractionListener {
         void onVisualizarClick(Chamado chamado);
         void onConcluirClick(Chamado chamado);
@@ -47,11 +48,12 @@ public class ChamadoAdapter extends RecyclerView.Adapter<ChamadoAdapter.ChamadoV
         String status = chamado.getStatus();
         holder.tvStatus.setText("Status: " + (status != null ? status : "N/A"));
 
-        // --- LÓGICA DE VISIBILIDADE DOS BOTÕES ---
+        // Define a lógica de visibilidade e ação dos botões com base no status do chamado e no cargo do usuário.
 
-        // O botão Visualizar está sempre ativo
+        // O botão Visualizar está sempre ativo para todos.
         holder.btnVisualizar.setOnClickListener(v -> listener.onVisualizarClick(chamado));
 
+        // Ações de concluir e cancelar só são visíveis para Técnicos e Admins em chamados "Aberto".
         boolean isActionable = status != null && status.equalsIgnoreCase("Aberto");
         boolean isTecnicoOrAdmin = (cargoId == 1 || cargoId == 2);
 
@@ -79,13 +81,16 @@ public class ChamadoAdapter extends RecyclerView.Adapter<ChamadoAdapter.ChamadoV
         notifyDataSetChanged();
     }
 
+    /**
+     * ViewHolder que armazena as referências para as views de cada item da lista de chamados.
+     */
     static class ChamadoViewHolder extends RecyclerView.ViewHolder {
         TextView tvProtocolo, tvAssunto, tvStatus;
         ImageButton btnVisualizar, btnConcluir, btnCancelar;
 
         public ChamadoViewHolder(@NonNull View itemView) {
             super(itemView);
-            // CORREÇÃO: Usando os IDs corretos do XML
+            // Mapeia as views do layout item_chamado.xml para as variáveis.
             tvProtocolo = itemView.findViewById(R.id.tv_chamado_id);
             tvAssunto = itemView.findViewById(R.id.tv_chamado_assunto);
             tvStatus = itemView.findViewById(R.id.tv_chamado_status);

@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.helpfastmobile"
-    compileSdk = 36 // CORRIGIDO: Revertido para 36, conforme exigido pela dependência
+    compileSdk = 36 // 36, conforme exigido pela dependência
 
     defaultConfig {
         applicationId = "com.example.helpfastmobile"

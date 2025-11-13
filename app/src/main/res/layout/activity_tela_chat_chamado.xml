@@ -94,7 +94,7 @@ FAST"
                 app:tint="#000000" />
         </LinearLayout>
 
-        <!-- CORREÇÃO: Trocado ScrollView por RecyclerView -->
+        <!-- RecyclerView para exibir a lista de mensagens de forma eficiente -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_mensagens"
             android:layout_width="0dp"

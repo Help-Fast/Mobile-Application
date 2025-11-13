@@ -7,6 +7,18 @@
     android:background="#1F2A37"
     tools:context=".ui.admin.RelatorioActivity">
 
+    <Button
+        android:id="@+id/button_voltar_menu"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Voltar"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,25 +57,6 @@
             android:background="@drawable/background_button_white"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"/>
-
-        <TextView
-            android:id="@+id/tv_escolha_ano_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Escolha o ano:"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <Spinner
-            android:id="@+id/spinner_ano"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/background_button_white"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"/>
-
 
         <Button
             android:id="@+id/button_baixar_relatorio"

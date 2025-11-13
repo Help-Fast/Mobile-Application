@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- Permissão para salvar arquivos (necessária para Android antigo) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -35,8 +39,9 @@
         <activity android:name=".ui._legacy.FinalizacaoChamadoActivity" android:exported="false" />
         <activity android:name=".ui.admin.NovoTecnicoActivity" android:exported="false" />
         <activity android:name=".ui.faq.TelaFaqActivity" android:exported="false" />
+        <activity android:name=".ui.admin.RelatorioActivity" android:exported="false" />
+
         
-        <!-- NOVO: Activity de Gerenciamento adicionada -->
         <activity android:name=".ui.admin.GerenciarUsuariosActivity" android:exported="false" />
 
         <activity android:name=".ui._legacy.Tela_Chat_Admin" android:exported="false" />

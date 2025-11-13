@@ -13,14 +13,22 @@ import com.example.helpfastmobile.data.repository.DataSourceCallback;
 
 import java.util.List;
 
+/**
+ * ViewModel responsável por gerenciar os dados de Chamados e Chat, atuando como intermediário
+ * entre a UI e a camada de dados (Repository).
+ *
+ * Ele lida com a lógica de negócio para buscar e atualizar os dados, e expõe essas informações
+ * para as Activities através de LiveData, garantindo que a UI reaja às mudanças de forma eficiente.
+ */
 public class ChamadoViewModel extends ViewModel {
 
     private final ChamadoRepository chamadoRepository;
-    // LiveData para a lista de TODOS os chamados (Admin/Técnico)
+
+    // LiveData para a lista de TODOS os chamados (usado por Admin/Técnico).
     private final MutableLiveData<List<Chamado>> todosChamadosResult = new MutableLiveData<>();
     private final MutableLiveData<String> todosChamadosError = new MutableLiveData<>();
 
-    // NOVO: LiveData específico para a lista de chamados de UM cliente
+    // LiveData para a lista de chamados de UM cliente específico.
     private final MutableLiveData<List<Chamado>> meusChamadosResult = new MutableLiveData<>();
     private final MutableLiveData<String> meusChamadosError = new MutableLiveData<>();
 
@@ -43,7 +51,7 @@ public class ChamadoViewModel extends ViewModel {
         this.chamadoRepository = ChamadoRepository.getInstance();
     }
 
-    // LiveData getters
+    // Getters para os LiveData, permitindo que a UI os observe.
     public LiveData<List<Chamado>> getTodosChamadosResult() { return todosChamadosResult; }
     public LiveData<String> getTodosChamadosError() { return todosChamadosError; }
     public LiveData<List<Chamado>> getMeusChamadosResult() { return meusChamadosResult; }
@@ -63,7 +71,7 @@ public class ChamadoViewModel extends ViewModel {
     public LiveData<DocumentAssistantResponse> getDocumentAssistantSuccess() { return documentAssistantSuccess; }
     public LiveData<String> getDocumentAssistantError() { return documentAssistantError; }
 
-    // --- Métodos do Repositório ---
+    // --- Métodos que delegam as chamadas para o Repositório ---
 
     public void sendQuestionToN8n(String question) {
         chamadoRepository.sendQuestionToN8n(question, new DataSourceCallback<Void>() {
@@ -87,6 +95,7 @@ public class ChamadoViewModel extends ViewModel {
         });
     }
 
+    /** Busca a lista de todos os chamados existentes. */
     public void getTodosChamados() {
         chamadoRepository.getTodosChamados(new DataSourceCallback<List<Chamado>>() {
             @Override
@@ -96,12 +105,17 @@ public class ChamadoViewModel extends ViewModel {
         });
     }
 
+    /** Busca a lista de chamados de um cliente específico. */
     public void getMeusChamados(int clienteId) {
         chamadoRepository.getMeusChamados(clienteId, new DataSourceCallback<List<Chamado>>() {
             @Override
-            public void onSucesso(List<Chamado> data) { meusChamadosResult.postValue(data); } // CORREÇÃO: Posta no LiveData correto
+            public void onSucesso(List<Chamado> data) {
+                meusChamadosResult.postValue(data);
+            }
             @Override
-            public void onErro(String errorMessage) { meusChamadosError.postValue(errorMessage); } // CORREÇÃO: Posta no LiveData correto
+            public void onErro(String errorMessage) {
+                meusChamadosError.postValue(errorMessage);
+            }
         });
     }
 

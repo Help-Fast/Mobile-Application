@@ -2,10 +2,16 @@ package com.example.helpfastmobile.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Representa a estrutura de dados de um Chamado, mapeando os campos recebidos da API.
+ * Os campos de ID (`id`, `tecnicoId`) são do tipo Integer em vez de int para permitir
+ * valores nulos, tornando o parsing do JSON mais seguro caso um desses campos não seja enviado.
+ * A data de abertura é armazenada como String para evitar erros de parsing com formatos de data inesperados.
+ */
 public class Chamado {
 
     @SerializedName("id")
-    private Integer id; // Alterado de int para Integer
+    private Integer id;
 
     @SerializedName("tecnicoId")
     private Integer tecnicoId;
@@ -16,16 +22,15 @@ public class Chamado {
     @SerializedName("status")
     private String status;
 
-    // CORREÇÃO: Alterado para String para evitar erros de parsing de data
     @SerializedName("dataAbertura")
     private String dataAbertura;
 
     // Getters and Setters
-    public Integer getId() { // Alterado de int para Integer
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) { // Alterado de int para Integer
+    public void setId(Integer id) {
         this.id = id;
     }
 

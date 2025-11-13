@@ -47,14 +47,17 @@ public class NovoChamadoActivity extends AppCompatActivity {
     }
 
     private void setupObservers() {
+        // Observa o resultado da criação de um novo chamado.
         chamadoViewModel.getAbrirChamadoResult().observe(this, chamado -> {
             if (chamado != null) {
                 Toast.makeText(this, "Chamado aberto com sucesso! ID: " + chamado.getId(), Toast.LENGTH_LONG).show();
-                // CORREÇÃO: Navega para a TelaFaqActivity passando o ID do chamado criado
+
+                // Após criar o chamado, o usuário é direcionado para a tela de FAQ.
+                // O ID do novo chamado é passado para que a tela de FAQ possa associar as perguntas a ele.
                 Intent intent = new Intent(NovoChamadoActivity.this, TelaFaqActivity.class);
                 intent.putExtra(TelaFaqActivity.EXTRA_CHAMADO_ID, chamado.getId());
                 startActivity(intent);
-                finish(); // Fecha a tela atual
+                finish(); // Fecha a tela de criação para não voltar a ela.
             }
         });
 
@@ -66,7 +69,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
     }
 
     private void handleAbrirChamado() {
-        // O campo 'motivo' é o que a API espera. O campo 'assunto' não é utilizado na API.
+        // O campo 'motivo' é o principal para a API. O campo 'assunto' é apenas para a UI.
         String motivo = editMotivo.getText().toString().trim();
 
         if (motivo.isEmpty()) {
@@ -83,7 +86,7 @@ public class NovoChamadoActivity extends AppCompatActivity {
 
         Log.d(TAG, "Abrindo chamado para o cliente ID " + clienteId + " com o motivo: " + motivo);
 
-        // Apenas chama o método da ViewModel. A observação cuidará do resultado.
+        // Inicia o processo de abrir o chamado. O resultado será capturado pelo observador.
         chamadoViewModel.abrirChamado(clienteId, motivo);
     }
 }

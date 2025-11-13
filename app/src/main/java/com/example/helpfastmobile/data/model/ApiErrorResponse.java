@@ -2,7 +2,7 @@ package com.example.helpfastmobile.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-// Esta classe representa a estrutura do JSON de erro retornado pela API.
+// Esta classe é o JSON de erro retornado pela API.
 public class ApiErrorResponse {
 
     @SerializedName("error")
